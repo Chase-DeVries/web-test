@@ -13,11 +13,7 @@
       integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
       crossorigin="anonymous"></script>
   </head>
-  <ul class="menu-bar">
-    <li><a href="/">Home</a></li>
-    <li><a href="/jokes">Jokes</a></li>
-    <li><a href="/photos" class="active">Photos</a></li>
-  </ul>
+  <div hx-trigger="load" hx-get="/navbar" class="menu-bar"></div>
   <h1>Photo Gallery</h1>
   <div id="gallery" class="row">
     <script>
@@ -36,17 +32,20 @@
         async function recursiveRender(index) {
           console.log('rendering recursively', index);
           if (index < data.items.length) {
-            if (data.items[index] && data.items[index].contentType == 'image/jpeg') {
+            if (data.items[index] && data.items[index].contentType == 'image/jpeg' && data.items[index].name.includes('-thumbs')) {
+              const thumbnail = data.items[index];
+              const fullSize = data.items.find(item => item.name === data.items[index].name.replace('-thumbs', ''));
               const a = document.createElement("a");
-              a.href = `https://storage.googleapis.com/${data.items[index].bucket}/${data.items[index].name}`;
+              a.href = `https://storage.googleapis.com/${fullSize.bucket}/${fullSize.name}`;
               a.target = "_blank";
               const img = document.createElement('img');
-              img.src = `https://storage.googleapis.com/${data.items[index].bucket}/${data.items[index].name}`;
-              img.alt = data.items[index].name;
+              img.src = `https://storage.googleapis.com/${thumbnail.bucket}/${thumbnail.name}`;
+              img.alt = thumbnail.name;
               img.onload = () => {
                 console.log('loaded', index);
                 recursiveRender(index + 1);
               };
+              img.loading = 'lazy';
               const column = document.getElementById(`column${(imageCount % COLUMN_COUNT) + 1}`);
               a.appendChild(img);
               column.appendChild(a);
