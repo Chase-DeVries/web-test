@@ -1,7 +1,8 @@
 services:
   app:
     image: htmx-demo
-    ports: 
+    build: .
+    ports:
       - 127.0.0.1:6969:6969
     working_dir: /app
     volumes:
