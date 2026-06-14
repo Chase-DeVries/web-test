@@ -7,5 +7,14 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+      # Service-account key for GCS uploads. Drop the JSON at ./secrets/gcs-key.json
+      # (the secrets/ folder is gitignored). Mounted read-only as a directory so a
+      # missing key file is just an empty mount rather than an accidental dir.
+      - ./secrets:/run/secrets:ro
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/gcs-key.json
+      # Basic-auth gate for /upload. Set real values here or via a .env file.
+      - UPLOAD_USER=${UPLOAD_USER:-}
+      - UPLOAD_SECRET=${UPLOAD_SECRET:-}
     expose:
       - 6969

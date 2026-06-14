@@ -1,0 +1,11 @@
+# Keep secrets out of the image (COPY . . would otherwise bake these in)
+.env
+secrets/
+
+# Not needed at build time / would bloat the image
+.git
+tmp/
+htmx-demo
+*.drawio
+build_diagram.py
+README.md

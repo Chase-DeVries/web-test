@@ -1,3 +1,6 @@
 
+.env
 htmx-demo
 tmp/
+secrets/*
+!secrets/README.md

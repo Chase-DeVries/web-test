@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body class="content-frame">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chase — Upload</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+    <script src="https://unpkg.com/htmx.org@1.9.6"
+      integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
+      crossorigin="anonymous"></script>
+  </head>
+  <div hx-trigger="load" hx-get="/navbar" class="menu-bar"></div>
+  <h1 class="heading">Upload photos</h1>
+  <p class="paragraph">Pick a gallery name and one or more JPEGs. Thumbnails are generated and
+    both sizes are uploaded to the gallery.</p>
+
+  <form hx-post="/upload" hx-encoding="multipart/form-data" hx-target="#result" hx-disabled-elt="button">
+    <p class="paragraph">
+      <label>Gallery name<br>
+        <input type="text" name="folder" placeholder="e.g. spain" required
+          pattern="[A-Za-z0-9-]+" title="letters, numbers and dashes only">
+      </label>
+    </p>
+    <p class="paragraph">
+      <label>Photos<br>
+        <input type="file" name="photos" accept=".jpg,.jpeg,image/jpeg" multiple required>
+      </label>
+    </p>
+    <button type="submit">Upload</button>
+  </form>
+
+  <div id="result"></div>
+</body>
+
+</html>

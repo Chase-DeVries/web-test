@@ -42,6 +42,10 @@ func HandleRequests(router *http.ServeMux, port string) {
 	router.HandleFunc("/uk", uk)
 	router.HandleFunc("/navbar", navBar)
 
+	// Upload is gated behind basic auth (UPLOAD_USER / UPLOAD_SECRET).
+	router.HandleFunc("GET /upload", requireBasicAuth(uploadForm))
+	router.HandleFunc("POST /upload", requireBasicAuth(uploadSubmit))
+
 	router.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 	router.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("styles"))))
 
