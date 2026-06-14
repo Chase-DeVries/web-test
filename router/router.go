@@ -12,8 +12,13 @@ func index(w http.ResponseWriter, r *http.Request) {
 	tpl.Execute(w, nil)
 }
 
-func photos(w http.ResponseWriter, r *http.Request) {
-	var tpl = template.Must(template.ParseFiles("views/photos.html"))
+func spain(w http.ResponseWriter, r *http.Request) {
+	var tpl = template.Must(template.ParseFiles("views/spain.html"))
+	tpl.Execute(w, nil)
+}
+
+func uk(w http.ResponseWriter, r *http.Request) {
+	var tpl = template.Must(template.ParseFiles("views/uk.html"))
 	tpl.Execute(w, nil)
 }
 
@@ -33,7 +38,8 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 func HandleRequests(router *http.ServeMux, port string) {
 	router.HandleFunc("/favicon.ico", faviconHandler)
 	router.HandleFunc("/{$}", index) // exact "/" only, so unknown paths 404 instead of silently serving home
-	router.HandleFunc("/photos", photos)
+	router.HandleFunc("/spain", spain)
+	router.HandleFunc("/uk", uk)
 	router.HandleFunc("/navbar", navBar)
 
 	router.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))

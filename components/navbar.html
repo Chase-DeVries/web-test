@@ -5,9 +5,15 @@
   <li><a href="/">Home</a></li>
   {{ end }}
 
-  {{ if eq .Referer "/photos" }}
-  <li><a href="/photos" class="active">Photos</a></li>
+  {{ if eq .Referer "/spain" }}
+  <li><a href="/spain" class="active">Spain</a></li>
   {{ else}}
-  <li><a href="/photos">Photos</a></li>
+  <li><a href="/spain">Spain</a></li>
+  {{ end }}
+
+  {{ if eq .Referer "/uk" }}
+  <li><a href="/uk" class="active">UK</a></li>
+  {{ else}}
+  <li><a href="/uk">UK</a></li>
   {{ end }}
 </ul>
