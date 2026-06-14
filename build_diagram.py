@@ -4,8 +4,8 @@ from drawio_layout import Diagram, text_size
 
 # ---- box content; sizes are computed from the text so boxes are snug ----
 LABELS = {
-    "pages":        "HTML views + HTMX 1.9\nindex / photos\nhx-get loads navbar fragment",
-    "photojs":      "photos.html inline JS\nfetch() gallery + thumbnails\n(error/empty handling)",
+    "pages":        "HTML views + HTMX 1.9\nindex / spain / uk\nhx-get loads navbar fragment",
+    "photojs":      "assets/gallery.js\nloadGallery(folder) per tab\nfetch() thumbnails from GCS",
     "mux":          "router/router.go + middleware\nServeMux · logRequests · recoverPanics",
     "pagehandlers": "Page handlers\nindex / photos\n-> html/template",
     "navbarh":      "navbar fragment\nactive-link state",

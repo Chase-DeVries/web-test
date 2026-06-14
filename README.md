@@ -45,21 +45,49 @@ router/
   middleware.go             request logging + panic recovery
 requests/
   request_handler.go        navbar helper (active-link state)
-views/                      full-page templates (index, photos)
+views/                      full-page templates (index, spain, uk)
 components/                 HTMX fragments (navbar)
-assets/  styles/            static files served at /assets and /styles
+assets/
+  gallery.js                shared gallery renderer (loadGallery(folder))
+  ...                       images served at /assets
+styles/                     stylesheets served at /styles
+scripts/
+  upload_gallery.py         generate thumbnails + upload a gallery to GCS
 architecture.drawio         architecture diagram (regenerate via build_diagram.py)
 ```
 
 ### Routes
 
-| Path        | Purpose                                   |
-|-------------|-------------------------------------------|
-| `/`         | Home page                                 |
-| `/photos`   | Photo gallery (fetches GCS in the browser)|
-| `/navbar`   | Navbar fragment (loaded via HTMX)         |
-| `/assets/`  | Static assets                             |
-| `/styles/`  | Stylesheets                               |
+| Path        | Purpose                                       |
+|-------------|-----------------------------------------------|
+| `/`         | Home page                                     |
+| `/spain`    | Photo gallery — `spain` folder                |
+| `/uk`       | Photo gallery — `ukrazy` folder               |
+| `/navbar`   | Navbar fragment (loaded via HTMX)             |
+| `/assets/`  | Static assets (incl. `gallery.js`)            |
+| `/styles/`  | Stylesheets                                   |
+
+### Galleries
+
+Each gallery page calls `loadGallery(folder)` from `assets/gallery.js`, which lists
+the bucket scoped to that folder and renders thumbnails. The bucket convention is:
+full-size images under `<folder>/` and thumbnails under `<folder>-thumbs/` — a thumb
+links to its full-size image (same name with `-thumbs` stripped).
+
+**Adding / populating a gallery.** Generate thumbnails and upload both sets with:
+
+```sh
+pip install -r scripts/requirements.txt          # Pillow, once
+python scripts/upload_gallery.py <folder> <local-dir-of-jpegs>
+# e.g. python scripts/upload_gallery.py ukrazy ~/Desktop/ukrazy_photos
+# --no-upload to only build thumbnails, --dry-run to preview the gcloud commands
+```
+
+It writes 256px (longest-side) EXIF-rotated thumbnails and uploads full-size to
+`<folder>/` and thumbnails to `<folder>-thumbs/`. Requires an authenticated
+`gcloud`; the bucket must grant public read (allUsers → Storage Object Viewer).
+Then wire up the page: add a view that calls `loadGallery('<folder>')`, register a
+route in `router/router.go`, and add a navbar link in `components/navbar.html`.
 
 ## Roadmap
 
