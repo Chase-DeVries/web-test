@@ -17,10 +17,32 @@
   <h1>Photo Gallery</h1>
   <div id="gallery" class="row">
     <script>
-      async function fetchPhotos() {
+      function showMessage(text) {
+        gallery.innerHTML = `<p class="paragraph">${text}</p>`;
+      }
 
-        const response = await fetch('https://storage.googleapis.com/storage/v1/b/chasedv-photos/o');
-        const data = await response.json();
+      async function fetchPhotos() {
+        let data;
+        try {
+          const response = await fetch('https://storage.googleapis.com/storage/v1/b/chasedv-photos/o');
+          if (!response.ok) {
+            throw new Error(`bucket request failed: ${response.status}`);
+          }
+          data = await response.json();
+        } catch (err) {
+          console.error('failed to load photos', err);
+          showMessage('Could not load photos right now. Please try again later.');
+          return;
+        }
+
+        const items = (data && data.items) || [];
+        const thumbnails = items.filter(item =>
+          item && item.contentType == 'image/jpeg' && item.name.includes('-thumbs'));
+        if (thumbnails.length === 0) {
+          showMessage('No photos yet.');
+          return;
+        }
+
         const COLUMN_COUNT = 4;
         for (let i = 0; i < COLUMN_COUNT; i++) {
           const column = document.createElement('div');
@@ -30,29 +52,22 @@
         }
         let imageCount = 0;
         async function recursiveRender(index) {
-          console.log('rendering recursively', index);
-          if (index < data.items.length) {
-            if (data.items[index] && data.items[index].contentType == 'image/jpeg' && data.items[index].name.includes('-thumbs')) {
-              const thumbnail = data.items[index];
-              const fullSize = data.items.find(item => item.name === data.items[index].name.replace('-thumbs', ''));
-              const a = document.createElement("a");
-              a.href = `https://storage.googleapis.com/${fullSize.bucket}/${fullSize.name}`;
-              a.target = "_blank";
-              const img = document.createElement('img');
-              img.src = `https://storage.googleapis.com/${thumbnail.bucket}/${thumbnail.name}`;
-              img.alt = thumbnail.name;
-              img.onload = () => {
-                console.log('loaded', index);
-                recursiveRender(index + 1);
-              };
-              img.loading = 'lazy';
-              const column = document.getElementById(`column${(imageCount % COLUMN_COUNT) + 1}`);
-              a.appendChild(img);
-              column.appendChild(a);
-              imageCount++;
-            } else {
-              recursiveRender(index + 1);
-            }
+          if (index < thumbnails.length) {
+            const thumbnail = thumbnails[index];
+            const fullSize = items.find(item => item.name === thumbnail.name.replace('-thumbs', ''));
+            const a = document.createElement("a");
+            a.href = `https://storage.googleapis.com/${(fullSize || thumbnail).bucket}/${(fullSize || thumbnail).name}`;
+            a.target = "_blank";
+            const img = document.createElement('img');
+            img.src = `https://storage.googleapis.com/${thumbnail.bucket}/${thumbnail.name}`;
+            img.alt = thumbnail.name;
+            img.onload = () => recursiveRender(index + 1);
+            img.onerror = () => recursiveRender(index + 1);
+            img.loading = 'lazy';
+            const column = document.getElementById(`column${(imageCount % COLUMN_COUNT) + 1}`);
+            a.appendChild(img);
+            column.appendChild(a);
+            imageCount++;
           }
         }
         recursiveRender(0);

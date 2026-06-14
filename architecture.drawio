@@ -1,35 +1,95 @@
-<mxfile host="app.diagrams.net" agent="drawio_layout" version="24.0.0">
-  <diagram id="d1" name="htmx-demo architecture">
-    <mxGraphModel dx="1491" dy="1239" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="title" value="htmx-demo — Go + HTMX web app (Google Cloud Run)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=22;fontStyle=1;fontColor=#333333;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="1574" height="40" as="geometry" /></mxCell>
-        <mxCell id="client" value="BROWSER (client)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;verticalAlign=top;align=left;fontStyle=1;fontSize=13;fontColor=#0D47A1;arcSize=3;spacingTop=8;spacingLeft=10;" vertex="1" parent="1"><mxGeometry x="40" y="80" width="1574" height="180" as="geometry" /></mxCell>
-        <mxCell id="pages" value="HTML views + HTMX 1.9&#10;index / jokes / photos / budget&#10;hx-get/hx-post swap fragments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1565C0;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="100" y="135" width="560" height="95" as="geometry" /></mxCell>
-        <mxCell id="photojs" value="photos.html inline JS&#10;fetch() gallery + thumbnails&#10;(runs in the browser)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1565C0;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="820" y="135" width="560" height="95" as="geometry" /></mxCell>
-        <mxCell id="server" value="GO SERVER — net/http ServeMux (port 6969)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;verticalAlign=top;align=left;fontStyle=1;fontSize=13;fontColor=#1B5E20;arcSize=3;spacingTop=8;spacingLeft=10;" vertex="1" parent="1"><mxGeometry x="40" y="330" width="1574" height="470" as="geometry" /></mxCell>
-        <mxCell id="mux" value="router/router.go&#10;ServeMux + handlers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;fontStyle=1;spacingLeft=8;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="640" y="390" width="380" height="70" as="geometry" /></mxCell>
-        <mxCell id="pagehandlers" value="Page handlers&#10;index/jokes/photos/budget&#10;-&gt; html/template views" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="100" y="530" width="360" height="115" as="geometry" /></mxCell>
-        <mxCell id="fraghandlers" value="Fragment handlers&#10;navbar · generate · budgetData&#10;auth · logout" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="540" y="530" width="400" height="130" as="geometry" /></mxCell>
-        <mxCell id="static" value="Static file servers&#10;/assets  ·  /styles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="1180" y="530" width="360" height="95" as="geometry" /></mxCell>
-        <mxCell id="jokes" value="jokes pkg&#10;random joke" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="540" y="705" width="200" height="80" as="geometry" /></mxCell>
-        <mxCell id="requests" value="requests pkg&#10;Supabase client (auth + data)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="780" y="705" width="360" height="80" as="geometry" /></mxCell>
-        <mxCell id="vestigial" value="Built but UNUSED:&#10;Echo instance · templ · mysql pkg" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="100" y="695" width="360" height="95" as="geometry" /></mxCell>
-        <mxCell id="external" value="EXTERNAL SERVICES" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;verticalAlign=top;align=left;fontStyle=1;fontSize=13;fontColor=#4A148C;arcSize=3;spacingTop=8;spacingLeft=10;" vertex="1" parent="1"><mxGeometry x="40" y="870" width="1574" height="220" as="geometry" /></mxCell>
-        <mxCell id="mysql" value="MySQL 8 (compose)&#10;unused by app" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#ECEFF1;strokeColor=#90A4AE;align=center;verticalAlign=middle;fontSize=11;" vertex="1" parent="1"><mxGeometry x="100" y="935" width="320" height="130" as="geometry" /></mxCell>
-        <mxCell id="supabase" value="Supabase&#10;Auth + transactions&#10;(Postgres)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#E1BEE7;strokeColor=#6A1B9A;align=center;verticalAlign=middle;fontSize=11;" vertex="1" parent="1"><mxGeometry x="780" y="935" width="320" height="130" as="geometry" /></mxCell>
-        <mxCell id="gcs" value="Google Cloud Storage&#10;chasedv-photos bucket" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#E1BEE7;strokeColor=#6A1B9A;align=center;verticalAlign=middle;fontSize=11;" vertex="1" parent="1"><mxGeometry x="1180" y="935" width="360" height="130" as="geometry" /></mxCell>
-        <mxCell id="e-http" value="HTTP GET/POST" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#1565C0;endArrow=block;exitX=0.85;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#0D47A1;" edge="1" parent="1" source="pages" target="mux"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="556" y="300" /><mxPoint x="830" y="300" /></Array></mxGeometry></mxCell>
-        <mxCell id="e-photo" value="fetch() — bypasses&#10;Go server" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6A1B9A;endArrow=block;dashed=1;exitX=0.9;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#4A148C;" edge="1" parent="1" source="photojs" target="gcs"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1324" y="290" /><mxPoint x="1577" y="290" /><mxPoint x="1577" y="905" /><mxPoint x="1360" y="905" /></Array></mxGeometry></mxCell>
-        <mxCell id="e-mux-page" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#333333;endArrow=block;exitX=0.2;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="mux" target="pagehandlers"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="716" y="495" /><mxPoint x="280" y="495" /></Array></mxGeometry></mxCell>
-        <mxCell id="e-mux-frag" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#333333;endArrow=block;exitX=0.45;exitY=1;exitDx=0;exitDy=0;entryX=0.55;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="mux" target="fraghandlers"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="811" y="495" /><mxPoint x="760" y="495" /></Array></mxGeometry></mxCell>
-        <mxCell id="e-mux-static" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#333333;endArrow=block;exitX=0.85;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="mux" target="static"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="983" y="495" /><mxPoint x="1360" y="495" /></Array></mxGeometry></mxCell>
-        <mxCell id="e-frag-jokes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#333333;endArrow=block;exitX=0.2;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fraghandlers" target="jokes"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="620" y="705" /></Array></mxGeometry></mxCell>
-        <mxCell id="e-frag-req" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#333333;endArrow=block;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fraghandlers" target="requests"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="840" y="685" /><mxPoint x="960" y="685" /></Array></mxGeometry></mxCell>
-        <mxCell id="e-req-supa" value="REST / GoTrue" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6A1B9A;endArrow=block;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.6;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#4A148C;" edge="1" parent="1" source="requests" target="supabase"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="850" /><mxPoint x="972" y="850" /></Array></mxGeometry></mxCell>
-        <mxCell id="e-vest-mysql" value="unused" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#90A4AE;endArrow=block;dashed=1;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#607D8B;" edge="1" parent="1" source="vestigial" target="mysql"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="208" y="855" /><mxPoint x="260" y="855" /></Array></mxGeometry></mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
+<mxfile host="65bd71144e">
+    <diagram id="d1" name="htmx-demo architecture">
+        <mxGraphModel dx="1684" dy="725" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="680" pageHeight="760" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="htmx-demo — Go + HTMX photo site (Cloud Run)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=20;fontStyle=1;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="20" width="620" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="client" value="BROWSER (client)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;verticalAlign=top;align=left;fontStyle=1;fontSize=13;fontColor=#0D47A1;arcSize=3;spacingTop=8;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="44" y="80" width="504" height="136" as="geometry"/>
+                </mxCell>
+                <mxCell id="server" value="GO SERVER — net/http ServeMux" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;verticalAlign=top;align=left;fontStyle=1;fontSize=13;fontColor=#1B5E20;arcSize=3;spacingTop=8;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="44" y="234" width="574" height="356" as="geometry"/>
+                </mxCell>
+                <mxCell id="external" value="EXTERNAL SERVICES" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;verticalAlign=top;align=left;fontStyle=1;fontSize=13;fontColor=#4A148C;arcSize=3;spacingTop=8;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="414" y="614" width="214" height="146" as="geometry"/>
+                </mxCell>
+                <mxCell id="pages" value="HTML views + HTMX 1.9&#xa;index / photos&#xa;hx-get loads navbar fragment" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1565C0;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="66" y="128" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="photojs" value="photos.html inline JS&#xa;fetch() gallery + thumbnails&#xa;(error/empty handling)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1565C0;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="326" y="128" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="pagehandlers" value="Page handlers&#xa;index / photos&#xa;-&gt; html/template" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="66" y="398" width="130" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="navbarh" value="navbar fragment&#xa;active-link state" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="256" y="398" width="130" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="static" value="Static file servers&#xa;/assets  ·  /styles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="446" y="398" width="150" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="mux" value="router/router.go + middleware&#xa;ServeMux · logRequests · recoverPanics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;fontStyle=1;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="191" y="288" width="280" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="requests" value="requests pkg&#xa;navbar path helper" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;align=left;verticalAlign=top;fontSize=11;spacingLeft=8;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="251" y="518" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="gcs" value="Google Cloud Storage&#xa;chasedv-photos bucket" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#E1BEE7;strokeColor=#6A1B9A;align=center;verticalAlign=middle;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="436" y="668" width="170" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-http" value="HTTP GET" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#1565C0;endArrow=block;exitX=0.85;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#0D47A1;" parent="1" source="pages" target="mux" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="236" y="222"/>
+                            <mxPoint x="331" y="222"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-mux-page" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#333333;endArrow=block;exitX=0.2;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="mux" target="pagehandlers" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="247" y="368"/>
+                            <mxPoint x="131" y="368"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-mux-nav" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#333333;endArrow=block;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="mux" target="navbarh" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="331" y="368"/>
+                            <mxPoint x="321" y="368"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-mux-static" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#333333;endArrow=block;exitX=0.85;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="mux" target="static" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="429" y="368"/>
+                            <mxPoint x="521" y="368"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-nav-req" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#333333;endArrow=block;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="navbarh" target="requests" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="321" y="483"/>
+                            <mxPoint x="321" y="483"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-photo" value="fetch() — bypasses&#xa;Go server" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6A1B9A;endArrow=block;dashed=1;exitX=0.9;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;fontColor=#4A148C;" parent="1" source="photojs" target="gcs" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="506" y="218"/>
+                            <mxPoint x="636" y="218"/>
+                            <mxPoint x="636" y="703"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
 </mxfile>
